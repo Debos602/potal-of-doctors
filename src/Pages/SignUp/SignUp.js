@@ -1,22 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
-	const { createUser } = useContext(AuthContext);
+	const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+	const [signUpError, setSignUpError] = useState("");
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	const navigate = useNavigate();
 
 	const handleSignUp = (data) => {
-		const { email, password } = data;
+		const { email, password, displayName } = data;
 
 		createUser(email, password)
 			.then((result) => {
 				const user = result.user;
+				toast("User created successfully");
+				const profile = {
+					displayName: displayName,
+				};
+				updateUser(profile)
+					.then(() => {
+						navigate("/");
+					})
+					.catch((error) => console.log(error));
+			})
+			.catch((error) => {
+				console.log(error);
+				setSignUpError(error.message);
+			});
+	};
+
+	const handleGoogleLogin = () => {
+		googleLogin()
+			.then((result) => {
+				const user = result.user;
+				toast("Google login successfully");
 			})
 			.catch((error) => console.log(error));
 	};
@@ -79,6 +103,7 @@ const SignUp = () => {
 							className="w-full border-2 bg-accent text-white mt-5 p-2 rounded-lg"
 							type="submit"
 						/>
+						{signUpError && <p className="text-red-600">{signUpError}</p>}
 					</form>
 					<p>
 						Already Register?{" "}
@@ -87,7 +112,10 @@ const SignUp = () => {
 						</Link>
 					</p>
 					<div className="divider">OR</div>
-					<button className="btn btn-outline w-full hover:bg-accent">
+					<button
+						onClick={handleGoogleLogin}
+						className="btn btn-outline w-full hover:bg-accent"
+					>
 						CONTINUE WITH GOOGLE
 					</button>
 				</div>
