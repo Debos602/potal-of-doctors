@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthProvider';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -18,6 +18,15 @@ const Navbar = () => {
             </li>
             <li>
                 <Link to="/appointment">Appointment</Link>
+            </li>
+            <li>
+                <Link to="/about">About</Link>
+            </li>
+            <li>
+                <Link to="/about">About</Link>
+            </li>
+            <li>
+                <Link to="/about">About</Link>
             </li>
             <li>
                 <Link to="/about">About</Link>

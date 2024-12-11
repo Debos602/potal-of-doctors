@@ -32,6 +32,8 @@ const ManageDoctors = () => {
         },
     });
 
+    console.log(doctors);
+
     const handleDeleteDoctor = (doctor) => {
         fetch(`http://localhost:5000/doctors/${doctor._id}`, {
             method: 'DELETE',

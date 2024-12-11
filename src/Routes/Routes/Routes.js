@@ -12,6 +12,7 @@ import AllUsers from '../../Pages/Dashboard/AllUsers/AllUsers';
 import AdminRoutes from './AdminRoute/AdminRoutes';
 import AddDoctor from '../../Pages/Dashboard/Dashboard/AddDoctor/AddDoctor';
 import ManageDoctors from '../../Pages/Dashboard/ManageDoctors/ManageDoctors';
+import About from '../../Pages/About/About';
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>,
+            },
+            {
+                path: '/about',
+                element: <About></About>,
             },
             {
                 path: '/appointment',
